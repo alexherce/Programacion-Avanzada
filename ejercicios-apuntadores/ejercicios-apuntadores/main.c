@@ -14,6 +14,7 @@
 
 void ej1_invertirCadena();
 void ej2_contarCadena();
+void ej2_copiarCadena();
 
 int main(int argc, const char * argv[]) {
     
@@ -69,5 +70,11 @@ void ej2_contarCadena()
     printf("El tamaño es: %d \n", n);
     
     free(string);
+    
+}
+
+/* Escriba un programa en C que permita Copiar una cadena a otra (sin strcpy) utilizando aritmética de apuntadores. */
+void ej3_copiarCadena()
+{
     
 }
