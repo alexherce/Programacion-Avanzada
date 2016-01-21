@@ -27,17 +27,21 @@ int main(int argc, const char * argv[]) {
     
     long int size = strlen(cadena);
     char * p = cadena;
+    char temp;
     
     while (*p++ != '\n')
     {
-        char temp = *(p-1);
+        temp = *(p-1);
         (*(letras + temp - 'a'))++;
     }
     
     for(i = 0; i < 29; i++)
     {
-        printf("%c: ", 'a'+i);
-        printf("%i \n", letras[i]);
+        if(letras[i] > 0)
+        {
+            printf("%c: ", 'a'+i);
+            printf("%i \n", letras[i]);
+        }
     }
     
     free(cadena);
