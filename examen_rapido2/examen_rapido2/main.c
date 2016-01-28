@@ -51,11 +51,13 @@ void forward(void * vector, size_t size, int len)
     
 }
 
-void backward(void * vector, size_t size)
+void backward(void * vector, size_t size, int len)
 {
-    void * start = vector + (size);
-    void * aux = start;
-    void * last = vector;
+    void* aux = end(vector, size, len);
+    while(aux != begin(vector)){
+        print(aux);
+        aux = prev(aux,size);
+    }
 }
 
 void iterate(t_direction option, void * vector, size_t size, int len)
@@ -76,7 +78,7 @@ void recorre(void * vector, int n, int len)
 int main(int argc, const char * argv[]) {
     
     char * hola = "Probando probando";
-    recorre(hola, 0, 17);
+    recorre(hola, 1, 17);
     
     return 0;
 }
