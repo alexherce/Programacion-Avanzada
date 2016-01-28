@@ -17,6 +17,7 @@ MENU EN C
 #define M 4
 #define N 20
 int * vector;
+int tipo_dato = 1;
 
 /* Tipos de funciones */
 
@@ -65,6 +66,10 @@ void selection_desc();
 int main(int argc, const char * argv[]) {
     
     int opcion = -1;
+    
+    printf("Selecciona el tipo de dato a ordenar: \n");
+    printf("1.- int, 2.- float \n");
+    scanf("%i", &tipo_dato);
     
     /* Generar y guardar números enteros */
     
@@ -244,32 +249,68 @@ void imprimeFloat(float * vector, int count)
 
 void insertion_asc()
 {
-    sort(&insertionSort, vector, N, sizeof(*vector), &ascInt, &swapInt);
-    printf("\n\n--- Enteros Ordenados ---\n\n");
+    if(tipo_dato == 1)
+    {
+        sort(&insertionSort, vector, N, sizeof(*vector), &ascInt, &swapInt);
+        printf("\n\n--- Enteros Ordenados ---\n\n");
     
-    imprimeInt(vector, N);
+        imprimeInt(vector, N);
+    } else if (tipo_dato == 2)
+    {
+        sort(&insertionSort, vector, N, sizeof(*vector), &ascFloat, &swapFloat);
+        printf("\n\n--- Floats Ordenados ---\n\n");
+        
+        imprimeFloat(vector, N);
+    }
 }
 
 void insertion_desc()
 {
-    sort(&insertionSort, vector, N, sizeof(*vector), &descInt, &swapInt);
-    printf("\n\n--- Enteros Ordenados ---\n\n");
-    
-    imprimeInt(vector, N);
+    if(tipo_dato == 1)
+    {
+        sort(&insertionSort, vector, N, sizeof(*vector), &descInt, &swapInt);
+        printf("\n\n--- Enteros Ordenados ---\n\n");
+        
+        imprimeInt(vector, N);
+    } else if (tipo_dato == 2)
+    {
+        sort(&insertionSort, vector, N, sizeof(*vector), &descFloat, &swapFloat);
+        printf("\n\n--- Floats Ordenados ---\n\n");
+        
+        imprimeFloat(vector, N);
+    }
 }
 
 void selection_asc()
 {
-    sort(&selectionSort, vector, N, sizeof(*vector), &ascInt, &swapInt);
-    printf("\n\n--- Enteros Ordenados ---\n\n");
-    
-    imprimeInt(vector, N);
+    if(tipo_dato == 1)
+    {
+        sort(&selectionSort, vector, N, sizeof(*vector), &ascInt, &swapInt);
+        printf("\n\n--- Enteros Ordenados ---\n\n");
+        
+        imprimeInt(vector, N);
+    } else if (tipo_dato == 2)
+    {
+        sort(&selectionSort, vector, N, sizeof(*vector), &ascFloat, &swapFloat);
+        printf("\n\n--- Floats Ordenados ---\n\n");
+        
+        imprimeFloat(vector, N);
+    }
 }
 
 void selection_desc()
 {
-    sort(&selectionSort, vector, N, sizeof(*vector), &descInt, &swapInt);
-    printf("\n\n--- Enteros Ordenados ---\n\n");
-    
-    imprimeInt(vector, N);
+    if(tipo_dato == 1)
+    {
+        sort(&selectionSort, vector, N, sizeof(*vector), &descInt, &swapInt);
+        printf("\n\n--- Enteros Ordenados ---\n\n");
+        
+        imprimeInt(vector, N);
+    } else if (tipo_dato == 2)
+    {
+        sort(&selectionSort, vector, N, sizeof(*vector), &descFloat, &swapFloat);
+        printf("\n\n--- Floats Ordenados ---\n\n");
+        
+        imprimeFloat(vector, N);
+    }
 }
