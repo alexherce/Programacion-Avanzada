@@ -20,18 +20,6 @@ struct Libro * libros;
 
 typedef void (*t_direction)(void *, size_t, int);
 
-void recorre(int n, int size);
-void forward();
-void backward();
-void iterate(t_direction, void *, size_t, int len);
-
-int main(int argc, const char * argv[]) {
-    
-    
-    
-    return 0;
-}
-
 void* begin(void* vector){
     return vector;
 }
@@ -48,12 +36,19 @@ void* end(void* vector,size_t size, int len){
     return (vector+(size*len));
 }
 
-void forward(void * vector, size_t size)
+void print(char* elem)
 {
-    void * start = vector;
-    void * aux = start;
-    void * last = start + (size);
+    printf("%c \n",*elem);
+}
 
+void forward(void * vector, size_t size, int len)
+{
+    void* aux = begin(vector);
+    while(aux != end(vector,size,len)){
+        print(aux);
+        aux = next(aux,size);
+    }
+    
 }
 
 void backward(void * vector, size_t size)
@@ -68,13 +63,21 @@ void iterate(t_direction option, void * vector, size_t size, int len)
     (*option)(vector, size, len);
 }
 
-void recorre(int n, int len)
+void recorre(void * vector, int n, int len)
 {
     if(n == 0)
     {
-        iterate(forward, libros, sizeof(*libros),len);
+        iterate(forward, vector, sizeof(*vector),len);
     } else if (n == 1) {
-        iterate(backward, libros, sizeof(*libros),len);
+        iterate(backward, vector, sizeof(*vector),len);
     }
+}
+
+int main(int argc, const char * argv[]) {
+    
+    char * hola = "Probando probando";
+    recorre(hola, 0, 17);
+    
+    return 0;
 }
 
