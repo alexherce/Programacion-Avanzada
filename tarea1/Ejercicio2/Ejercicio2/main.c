@@ -42,19 +42,54 @@ void add_persona();
 void add_preguntas();
 void answer();
 void view_answers();
+void view_answers_age();
+
+/* --- FUNCIONES DEL MENU --- */
+
+typedef void (*menu_t)();
 
 int main(int argc, const char * argv[]) {
     
     p = (struct persona *)malloc(maxPersonas * sizeof(struct persona));
     preg = (struct pregunta *)malloc(N_PREG * sizeof(struct pregunta));
 
+    /* Menu */
     
+    int opcion = -1;
+    menu_t * opciones = (menu_t *) malloc(5 * sizeof(menu_t));
+    
+    *opciones = add_persona;
+    *(opciones + 1) = add_preguntas;
+    *(opciones + 2) = answer;
+    *(opciones + 3) = view_answers;
+    *(opciones + 4) = view_answers_age;
+    
+    while (opcion != 0)
+    {
+        printf("1.- Agregar Personas \n 2.- Agregar Preguntas \n 3.- Contestar Encuesta \n 4.- Ver Respuestas \n 5.- Ver Respuestas por Edad \n 0.- Salir \n");
+        printf("Selecciona tu opcion: \n");
+        scanf("%d", &opcion);
+        
+        if (opcion > 0 && opcion < 6)
+        {
+            (*(opciones[opcion-1]))();
+        } else {
+            printf("Opcion no valida \n");
+        }
+    }
+    
+    /* Liberar Memoria */
+    
+    free(p);
+    free(preg);
+    free(opciones);
     
     return 0;
 }
 
 void add_persona()
 {
+    int age = 0;
     if(nPersonas >= maxPersonas)
     {
         printf("Realloc Personas \n");
@@ -67,8 +102,12 @@ void add_persona()
     (p + nPersonas)->nombre = (char *)malloc(STRSIZE * sizeof(char));
     scanf("%s", (p + nPersonas)->nombre);
     
-    printf("-- Ingresa la edad: \n");
-    scanf("%d", &(p + nPersonas)->edad);
+    while(age < 17 || age > 120)
+    {
+        printf("-- Ingresa la edad (solo mayores de 17): \n");
+        scanf("%d", &age);
+        (p + nPersonas)->edad = age;
+    }
     
     (p + nPersonas)->respuestas = (struct respuestas *)malloc(N_PREG * sizeof(struct respuestas));
     
@@ -126,6 +165,11 @@ void answer()
 }
 
 void view_answers()
+{
+    
+}
+
+void view_answers_age()
 {
     
 }
