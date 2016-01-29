@@ -249,6 +249,9 @@ void super_free_mem()
             free(((b+i)->tripulacion + j)->apellidoTripulante);
             free(((b+i)->tripulacion + j)->rol);
         }
+        free((b+i)->nombreBarco);
+        free((b+i)->nombreOwner);
+        free((b+i)->apellidoOwner);
         free((b+i)->tripulacion);
     }
 }
