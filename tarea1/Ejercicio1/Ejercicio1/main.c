@@ -49,6 +49,7 @@ void print_barcos();
 void add_tripulante();
 void print_tripulante_barco();
 void print_tripulante_all();
+void super_free_mem();
 
 /* --- FUNCIONES DEL MENU --- */
 
@@ -86,6 +87,7 @@ int main(int argc, const char * argv[]) {
     
     /* Liberar Memoria */
     
+    super_free_mem();
     free(b);
     free(opciones);
     
@@ -163,19 +165,19 @@ void add_tripulante(){
 
         if((b+tmp)->numTripulantes <= (b+tmp)->maxTripulantes - 1)
         {
-            (b+tmp)->tripulacion[b[tmp].numTripulantes].nombreTripulante = (char *)malloc(STRSIZE * sizeof(char));
-            (b+tmp)->tripulacion[b[tmp].numTripulantes].apellidoTripulante = (char *)malloc(STRSIZE * sizeof(char));
-            (b+tmp)->tripulacion[b[tmp].numTripulantes].rol = (char *)malloc(STRSIZE * sizeof(char));
+            ((b+tmp)->tripulacion + ((b+tmp)->numTripulantes))->nombreTripulante = (char *)malloc(STRSIZE * sizeof(char));
+            ((b+tmp)->tripulacion + ((b+tmp)->numTripulantes))->apellidoTripulante = (char *)malloc(STRSIZE * sizeof(char));
+            ((b+tmp)->tripulacion + ((b+tmp)->numTripulantes))->rol = (char *)malloc(STRSIZE * sizeof(char));
         
             printf("-- Agregando tripulante %d de %d: \n", ((b+tmp)->numTripulantes + 1), (b+tmp)->maxTripulantes);
             printf("-- Ingresa el nombre del tripulante: \n");
-            scanf("%s", (b+tmp)->tripulacion[b[tmp].numTripulantes].nombreTripulante);
+            scanf("%s", ((b+tmp)->tripulacion + ((b+tmp)->numTripulantes))->nombreTripulante);
             printf("-- Ingresa el apellido del tripulante: \n");
-            scanf("%s", (b+tmp)->tripulacion[b[tmp].numTripulantes].apellidoTripulante);
+            scanf("%s", ((b+tmp)->tripulacion + ((b+tmp)->numTripulantes))->apellidoTripulante);
             printf("-- Ingresa la edad del tripulante: \n");
-            scanf("%d", &(b+tmp)->tripulacion[b[tmp].numTripulantes].edad);
+            scanf("%d", &((b+tmp)->tripulacion + ((b+tmp)->numTripulantes))->edad);
             printf("-- Ingresa el rol del tripulante: \n");
-            scanf("%s", (b+tmp)->tripulacion[b[tmp].numTripulantes].rol);
+            scanf("%s", ((b+tmp)->tripulacion + ((b+tmp)->numTripulantes))->rol);
         
             (b+tmp)->numTripulantes++;
         
@@ -202,10 +204,10 @@ void print_tripulante_barco(int n){
             for(i = 0; i < (b + tmp)->numTripulantes; i++)
             {
                 printf("-- Tripulante %d de %d: \n", i + 1, (b + tmp)->numTripulantes);
-                printf("--- Nombre: %s \n", (b + tmp)->tripulacion[i].nombreTripulante);
-                printf("--- Apellido: %s \n", (b + tmp)->tripulacion[i].apellidoTripulante);
-                printf("--- Edad: %i \n", (b + tmp)->tripulacion[i].edad);
-                printf("--- Rol: %s \n", (b + tmp)->tripulacion[i].rol);
+                printf("--- Nombre: %s \n", ((b + tmp)->tripulacion + i)->nombreTripulante);
+                printf("--- Apellido: %s \n", ((b + tmp)->tripulacion + i)->apellidoTripulante);
+                printf("--- Edad: %i \n", ((b + tmp)->tripulacion + i)->edad);
+                printf("--- Rol: %s \n", ((b + tmp)->tripulacion + i)->rol);
                 printf("---------------------- \n");
             }
         } else {
@@ -226,12 +228,27 @@ void print_tripulante_all()
         for(j = 0; j < (b + i)->numTripulantes; j++)
         {
             printf("-- Tripulante %d de %d: \n", j + 1, (b + i)->numTripulantes);
-            printf("--- Nombre: %s \n", (b + i)->tripulacion[j].nombreTripulante);
-            printf("--- Apellido: %s \n", (b + i)->tripulacion[j].apellidoTripulante);
-            printf("--- Edad: %i \n", (b + i)->tripulacion[j].edad);
-            printf("--- Rol: %s \n", (b + i)->tripulacion[j].rol);
+            printf("--- Nombre: %s \n", ((b + i)->tripulacion + j)->nombreTripulante);
+            printf("--- Apellido: %s \n", ((b + i)->tripulacion + j)->apellidoTripulante);
+            printf("--- Edad: %i \n", ((b + i)->tripulacion + j)->edad);
+            printf("--- Rol: %s \n", ((b + i)->tripulacion + j)->rol);
             printf("---------------------- \n");
         }
         printf("--------------------------------------- \n");
+    }
+}
+
+void super_free_mem()
+{
+    int i, j;
+    for(i = 0; i < barcosActuales; i++)
+    {
+        for(j = 0; j < (b + i)->numTripulantes; j++)
+        {
+            free(((b+i)->tripulacion + j)->nombreTripulante);
+            free(((b+i)->tripulacion + j)->apellidoTripulante);
+            free(((b+i)->tripulacion + j)->rol);
+        }
+        free((b+i)->tripulacion);
     }
 }
