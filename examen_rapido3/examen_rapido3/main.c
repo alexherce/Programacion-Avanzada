@@ -41,11 +41,12 @@ int main(int argc, const char * argv[]) {
             prom = (getpid() + getppid())/2;
             printf("--- Promedio del Hijo %d ---- \n", i);
             printf("%f \n", prom);
-            exit(0);
+            exit(prom);
         }
         else {
             // Estamos en el padre
         }
+        
     }
     
     return 0;
