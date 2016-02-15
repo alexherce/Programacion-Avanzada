@@ -28,45 +28,67 @@ int main(int argc, const char * argv[]) {
                 return 1;
         }
     }
+    printf("Crear %d procesos \n", n);
     
     // Posicion 0 es pos de lectura y 1 es de escritura
     int tuberia[2];
-        pid_t pid;
+    pid_t pid;
+    pid_t pidPadre;
         
     // Crea el pipe
     pipe(tuberia);
-        
-    // Hacer fork, los dos prcesos tienen conocimiento de la estructura
-    pid = fork();
     
-    for(i = 0; i < n; i++)
+    // -- PARA QUE FUNCIONE EN XCODE. NO ES NECESARIO EL PIDPADRE --
+    // SIN PIDPADRE, TERMINA EL PROGRAMA ANTES DE MOSTRAR LOS HIJOS.
+    pidPadre = fork();
+    if (pidPadre == -1)
     {
-        pid = fork();
-        
-        if (pid == -1)
-        {
-            printf("Error al crear el proceso hijo. \n");
-        }
-        else if (pid == 0)
-        {
-            int bits;
-            int testigo;
-            close(tuberia[1]);
-            bits = read(tuberia[0], &testigo, sizeof(int));
-            printf("Soy el hijo %d con PID: %d Recibi el testigo %d que tendre por 5 segundos. \n", i + 1, getpid(), testigo);
-            close(tuberia[0]);
-            write(tuberia[1], &bits, sizeof(int));
-            sleep(5);
-            exit(0);
-        } else {
-            close(tuberia[0]);
-            write(tuberia[1], &tmp, sizeof(int));
-        }
+        printf("Error al crear el proceso padre. \n");
     }
-    
-    // -- MUESTRA LOS HIJOS A COMO VAN TERMINANDO --
-    while ((pid = wait(&estado)) > 0) {
-        printf("Termino hijo con PID: %d \n", pid);
+    else if (pidPadre == 0)
+    {
+        // -- CREAR LOS HIJOS. --
+        for(i = 0; i < n; i++)
+        {
+            pid = fork();
+            
+            if (pid == -1)
+            {
+                printf("Error al crear el proceso hijo. \n");
+            }
+            else if (pid == 0)
+            {
+                int numero, bits;
+                close(tuberia[1]);
+                bits = read(tuberia[0], &numero, sizeof(int));
+                if(bits == sizeof(int))
+                {
+                    printf("Soy el hijo %d con PID: %d Recibi el testigo %d y lo tendre 5 segundos. \n", i + 1, getpid(), bits);
+                    close(tuberia[0]);
+                    write(tuberia[1], &bits, sizeof(int));
+                }
+
+                sleep(5);
+                exit(0);
+            } else {
+                if (waitpid(pid, &estado, 0) != -1)
+                {
+                    if (WIFEXITED(estado)) {
+                        printf("Ya terminó el proceso hijo con PID %d \n", getpid());
+                    }
+                }
+            }
+        }
+        
+    } else {
+        close(tuberia[0]);
+        write(tuberia[1], &tmp, sizeof(int));
+        if (waitpid(pidPadre, &estado, 0) != -1)
+        {
+            if (WIFEXITED(estado)) {
+                printf("Ya terminó el proceso padre con PID %d \n", getpid());
+            }
+        }
     }
     
     
