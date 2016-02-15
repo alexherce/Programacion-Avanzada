@@ -59,15 +59,18 @@ int main(int argc, const char * argv[]) {
             else if (pid == 0)
             {
                 int numero, bits;
+                printf("leyendo... ");
                 close(tuberia[1]);
                 bits = read(tuberia[0], &numero, sizeof(int));
+                printf("listo! \n");
                 if(bits == sizeof(int))
                 {
-                    printf("Soy el hijo %d con PID: %d Recibi el testigo %d y lo tendre 5 segundos. \n", i + 1, getpid(), numero);
+                    printf("Soy el hijo %d con PID: %d Recibi el testigo '%d' y lo tendre 5 segundos. \n", i + 1, getpid(), numero);
+                    sleep(5);
                     close(tuberia[0]);
                     write(tuberia[1], &numero, sizeof(int));
+                    printf("Soy el hijo %d con PID: %d Mande el testigo '%d' \n", i + 1, getpid(), numero);
                 }
-                sleep(5);
                 exit(0);
             } else {
                 if (waitpid(pid, &estado, 0) != -1)
