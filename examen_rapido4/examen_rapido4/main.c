@@ -63,11 +63,10 @@ int main(int argc, const char * argv[]) {
                 bits = read(tuberia[0], &numero, sizeof(int));
                 if(bits == sizeof(int))
                 {
-                    printf("Soy el hijo %d con PID: %d Recibi el testigo %d y lo tendre 5 segundos. \n", i + 1, getpid(), bits);
+                    printf("Soy el hijo %d con PID: %d Recibi el testigo %d y lo tendre 5 segundos. \n", i + 1, getpid(), numero);
                     close(tuberia[0]);
-                    write(tuberia[1], &bits, sizeof(int));
+                    write(tuberia[1], &numero, sizeof(int));
                 }
-
                 sleep(5);
                 exit(0);
             } else {
@@ -90,46 +89,5 @@ int main(int argc, const char * argv[]) {
             }
         }
     }
-    
-    
-//    if(pid == -1)
-//    {
-//        printf("Error al crear al proceso hijo\n");
-//        exit(-1);
-//    }
-//    else if(pid == 0)
-//    {
-//        int factorial, numero, bits, i;
-//        
-//        while(1)
-//        {
-//            // Cerrar escritura antes de leer, no cerrar lectura despues de leer
-//            close(tuberia[1]);
-//            bits = read(tuberia[0], &numero, sizeof(int));
-//            if(bits == sizeof(int))
-//            {
-//                if(numero == 0) exit(0);
-//                factorial = 1;
-//                for(i = 1; i <= numero; ++i)
-//                {
-//                    factorial *= i;
-//                }
-//                printf("El factorial de %d es %d\n", numero, factorial);
-//            }
-//        }
-//    }
-//    else
-//    {
-//        int num = 1;
-//        while(num  != 0)
-//        {
-//            scanf("%d", &num);
-//            // Cerrar lectura antes de escribir, no cerrar ecritura despues...
-//            close(tuberia[0]);
-//            write(tuberia[1], &num, sizeof(int));
-//        }
-//    }
-    
-    
-        return 0;
+    return 0;
 }
