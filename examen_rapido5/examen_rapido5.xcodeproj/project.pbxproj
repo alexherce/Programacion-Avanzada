@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		822F5BC41C7B671300DB73E1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 822F5BC31C7B671300DB73E1 /* main.c */; };
+		822F5BCB1C7B69A600DB73E1 /* cliente.c in Sources */ = {isa = PBXBuildFile; fileRef = 822F5BCA1C7B69A600DB73E1 /* cliente.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		822F5BC01C7B671300DB73E1 /* examen_rapido5 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = examen_rapido5; sourceTree = BUILT_PRODUCTS_DIR; };
 		822F5BC31C7B671300DB73E1 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		822F5BCA1C7B69A600DB73E1 /* cliente.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cliente.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				822F5BC31C7B671300DB73E1 /* main.c */,
+				822F5BCA1C7B69A600DB73E1 /* cliente.c */,
 			);
 			path = examen_rapido5;
 			sourceTree = "<group>";
@@ -118,6 +121,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				822F5BCB1C7B69A600DB73E1 /* cliente.c in Sources */,
 				822F5BC41C7B671300DB73E1 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
