@@ -95,7 +95,7 @@ int main(int argc, const char * argv[]) {
         
         // Leer de socket y escribir en pantalla
         while (leidos = read(cliente, &buffer, sizeof(buffer))) {
-            write(fileno(stdout), &buffer, leidos);
+            //write(fileno(stdout), &buffer, leidos);
             
             store(atoi(buffer));
             
@@ -106,7 +106,7 @@ int main(int argc, const char * argv[]) {
             prom(temps);
             
             //leidos = write(fileno(stdin), &buffer, sizeof(buffer));
-            write(cliente, &buffer, sizeof(int));
+            //write(cliente, &buffer, sizeof(int));
         }
     }
     

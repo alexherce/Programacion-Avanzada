@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <time.h>
+#include <string.h>
 
 #define TCP_PORT 8000
 #define TIME_INTERVAL 10;
@@ -51,28 +52,33 @@ int main(int argc, const char * argv[]) {
      
         int i = 0;
         int j = 0;
+        char c [10];
         int time_int = TIME_INTERVAL;
         for(i = 0; i < 2; i++)
         {
             int * temps = (int *)malloc(10 * sizeof(int));
             
+            for(j = 0; j < time_int; j++)
+            {
+                printf("Generando Temperatura... ");
+                srand(time(NULL) ^ (i<<1));
+                *(temps+j) = rand() % 50;
+                printf(" %d ", *(temps+j));
+                printf("done! \n ");
+                sleep(1);
+            }
             
             for(j = 0; j < time_int; j++)
             {
-                srand(time(NULL) ^ (i<<16));
-                *(temps+j) = rand() % 50;
-        
-                sleep(1);
-            }
-            for(j = 0; j < time_int; j++)
-            {
+                printf("Enviando... ");
+                sprintf(c,"%d",*(temps+j));
+                strncpy(buffer, &c, sizeof(c));
+                printf("Enviando %s... ", c);
                 // Leer de teclado y escribir en socket
-                while (leidos = read(fileno(stdin), &buffer, sizeof(buffer))) {
-                    write(cliente, &buffer, leidos);
-                    
-                    leidos = read(cliente, &buffer, sizeof(buffer));
-                    write(fileno(stdout), &buffer, leidos);
-                }
+                    write(cliente, &buffer, 1000);
+                
+                    //write(fileno(stdout), &buffer, 1000);
+                printf("done! \n ");
             }
             free(temps);
         }
