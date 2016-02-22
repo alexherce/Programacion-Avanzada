@@ -50,6 +50,7 @@ int main(int argc, const char * argv[]) {
         // -- CREAR LOS HIJOS. --
         for(i = 0; i < n; i++)
         {
+            int tuberia[2];
             pid = fork();
             
             if (pid == -1)
@@ -59,7 +60,7 @@ int main(int argc, const char * argv[]) {
             else if (pid == 0)
             {
                 int numero, bits;
-                printf("leyendo... ");
+                printf("Soy el hijo %d con PID %d: leyendo... ",i+1, getpid());
                 close(tuberia[1]);
                 bits = read(tuberia[0], &numero, sizeof(int));
                 printf("listo! \n");
@@ -76,7 +77,7 @@ int main(int argc, const char * argv[]) {
                 if (waitpid(pid, &estado, 0) != -1)
                 {
                     if (WIFEXITED(estado)) {
-                        printf("Ya terminó el proceso hijo con PID %d \n", getpid());
+                        printf("Ya terminó el proceso hijo con PID %d \n", pid);
                     }
                 }
             }
