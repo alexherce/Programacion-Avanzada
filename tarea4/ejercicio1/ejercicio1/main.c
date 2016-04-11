@@ -6,12 +6,12 @@
 //  Copyright © 2016 Alejandro Herce. All rights reserved.
 //
 
-#include	<stdlib.h>
-#include    <stdio.h>
-#include    <time.h>
-#include    <unistd.h>
-#include    <pthread.h>
-#include    <semaphore.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include <unistd.h>
+#include <pthread.h>
+#include <semaphore.h>
 
 struct enano {
     int id;

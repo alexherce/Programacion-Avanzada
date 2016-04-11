@@ -6,17 +6,19 @@
 //  Copyright © 2016 Alejandro Herce. All rights reserved.
 //
 
-#include	<stdlib.h>
-#include    <stdio.h>
-#include    <time.h>
-#include    <unistd.h>
-#include    <pthread.h>
-#include    <semaphore.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
+#include <unistd.h>
+#include <pthread.h>
+#include <semaphore.h>
 
-#define N 5
-#define PESOMAX 50
-#define PESOROBOT 10
-#define NROBOTS 10
+#define N 8
+#define PESOMAX 100
+#define PESOROBOT 15
+#define NROBOTS 5
+
+void* handlerRobots(void * arg);
 
 struct seccion {
     int id;
@@ -32,8 +34,6 @@ typedef struct robot robot;
 
 typedef struct seccion seccion;
 seccion* secciones;
-
-void* handlerRobots(void * arg);
 
 int main(int argc, const char * argv[]) {
     
@@ -78,17 +78,17 @@ int main(int argc, const char * argv[]) {
 }
 
 void* handlerRobots(void* arg){
-    robot* rob = (robot*) arg;
+    robot* robt = (robot*) arg;
     int i;
     for (i = 0; i < N; ++i)
     {
         sem_wait(&(secciones+i)->peso);
-        printf("Robot %d entrando a la seccion: %d.\n", rob->id, (secciones+i)->id);
-        sleep(rand()%7);
-        printf("Robot %d saliendo de la seccion: %d.\n", rob->id, (secciones+i)->id);
+        printf("Robot %d entrando a la seccion: %d.\n", robt->id, (secciones+i)->id);
+        sleep(rand() % 7);
+        printf("Robot %d saliendo de la seccion: %d.\n", robt->id, (secciones+i)->id);
         sem_post(&(secciones+i)->peso);
     }
     
-    printf("Robot %d termino.\n", rob->id);
+    printf("Robot %d termino.\n", robt->id);
     pthread_exit(NULL);
 }
