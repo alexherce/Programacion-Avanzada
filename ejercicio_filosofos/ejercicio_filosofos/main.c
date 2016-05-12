@@ -18,7 +18,6 @@ sem_t cuchillos;
 sem_t tenedores;
 sem_t sillas;
 
-
 void* accion(void*);
 
 int main(int argc, const char * argv[]) {
