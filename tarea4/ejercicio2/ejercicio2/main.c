@@ -16,7 +16,7 @@
 
 #define NPERSONAS 15
 
-// Teeeeeeeest
+// Teeeeeeeest2
 
 pthread_mutex_t sanitario;
 int genero = -1;
