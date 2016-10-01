@@ -17,6 +17,8 @@ int tripsActuales = 0;
 int nBarcos = 1;
 int barcosActuales = 0;
 
+// Testing date changes
+
 /* --- STRUCTS --- */
 
 struct tripulante
