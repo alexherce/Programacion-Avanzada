@@ -114,6 +114,4 @@ void* handlerBlancanieves(void* arg){
     }
     printf("Todos comieron. \n");
     pthread_exit(NULL);
-    
-// TEEEEEEEEEEEEEEEEEEST
 }
